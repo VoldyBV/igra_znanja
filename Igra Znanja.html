@@ -1,0 +1,727 @@
+<html>
+	<head><title>Igra Znanja</title>
+		<link rel="stylesheet" href="css/stil.css">
+		<link rel="stylesheet" href="css/popup.css">
+		<link rel="stylesheet" href="css/modal.css">
+		<script src="Sistem/Kontrolna-Tabla-F.js"></script>
+		<script src="Sistem/Slovo Po Slovo.js"></script>
+		<script src="Sistem/Moj Broj.js"></script>
+		<script src="Sistem/Licitacije.js"></script>
+		<script src="Sistem/Ko to tamo pjeva.js"></script>
+		<script src="Sistem/Zid.js"></script>
+		<script src="Sistem/Asocijacije.js"></script>
+		<script src="Sistem/Korak Po Korak.js"></script>
+		<script src="Sistem/Spajalica.js"></script>
+		<script src="Sistem/Parovi.js"></script>
+		<script src="Sistem/Put Oko Svijeta.js"></script>
+		<script src="Sistem/Premetaljka.js"></script>
+		<script src="Sistem/Potjera.js"></script>
+		<script src="Sistem/Sef.js"></script>
+		<script src="Sistem/Moji Izrazi.js"></script>
+		<!--Slijede pomocne skripte-->
+		<script src="Izvori/KZ/POS DB.js"></script>
+		<script src="Izvori/KZ/SpajalicaDTB.js"></script>
+		<script src="Izvori/Zid/Baza Zid.js"></script>
+		<script src="Izvori/Asocijacije/Baza Asocijacije.js"></script>
+		<script src="Izvori/KPK/Baza-KPK.js"></script>
+		<script src="Izvori/Premetaljka/DataBase.js"></script>
+		<script src="Izvori/Potjera/DataBase.js"></script>
+	</head>
+	<body>
+	<div id="kontrolna-tabla" class="pozicija">
+		<div style="height: 550;width: 620px;">
+			<div id="lcol" style="position: absolute;top: 0;left: 0;">
+				<button id="sps" class="kontrolna-dugmad osnovno" onclick="Otvori_Slovo_Po_Slovo(this)">Slovo Po Slovo</button>
+				<button id="lic" class="kontrolna-dugmad osnovno" onclick="Otvori_Licitacije(this)">Ili-Ili</button>
+				<button id="zd" class="kontrolna-dugmad osnovno" onclick="Otvori_Zid(this)">Zid</button>
+				<button  id="kpk" class="kontrolna-dugmad osnovno" onclick="Otvori_KPK(this)">Korak Po Korak</button>
+				<button  id="par" class="kontrolna-dugmad osnovno" onclick="Otvori_Parovi(this)">Parovi</button>
+				<button  id="vre" class="kontrolna-dugmad osnovno" onclick="Otvori_Premetaljka(this)">Premetaljka</button>
+				<button  id="safe" class="kontrolna-dugmad osnovno" onclick="Otvori_Sef(this)">Sef</button>
+			</div>
+			<div id="rcol" style="position: absolute;top: 0;right: 0;">
+				<button id="mb" class="kontrolna-dugmad osnovno" onclick="Otvori_Moj_Broj(this)">Moj Broj</button>
+				<button id="kttp" class="kontrolna-dugmad osnovno" onclick="Otvori_KTTP(this)">Ko To Pjeva</button>
+				<button id="aso" class="kontrolna-dugmad osnovno" onclick="Otvori_Asocijacije(this)">Asocijacije</button>
+				<button id="spa" class="kontrolna-dugmad osnovno" onclick="Otvori_Spajalica(this)">Spajalica</button>
+				<button id="pos" class="kontrolna-dugmad osnovno" onclick="Otvori_Put_Oko_Svijeta(this)">Put Oko Svijeta</button>
+				<button id="pot" class="kontrolna-dugmad osnovno" onclick="Otvori_Potjera(this)">Potjera</button>
+				<button id="mi" class="kontrolna-dugmad osnovno" onclick="Otvori_MI(this)">Moji Izrazi</button>
+			</div>
+		</div>
+	</div>
+		<div id="slovo-po-slovo" style="display: none;" class="pozicija">
+			<div id="sps-fraza" class="osnovno polja" style="padding: 10px;height: auto; width: 505px"></div>
+			<br></br>
+			<div id="rjsps" class="osnovno" style="display: none;"></div>
+			<br></br>
+			<input type="text" id="trazilica" class="osnovno polja" maxlength="1" placeholder="Trazilica, Enter za potvrdu" oninput="this.value = this.value.toUpperCase()" onkeypress="ProvjeriFr(event, this)" />
+			<br></br>
+			<div class="popup" onmouseenter="PopUp(1, 'sps')" onmouseleave="PopUp(1, 'sps')"><input type="text" id="kasasps" class="osnovno polja" value="40" readonly /><span class="popuptext" id="myPopupsps1">Ja sam kasa u kojoj stoje poeni za igru Slovo Po Slovo</span></div>
+			<br></br>
+			<button class="osnovno polja" onclick="PomocSPS(this)">POMOC</button>
+			<br></br>
+			<button class="osnovno polja" onclick="document.getElementById('tajmer').value = 1">Zavrsi</button>
+			<div id="clue" style="display: none;"></div>
+		</div>
+		<div id="moj-broj" style="display: none;" class="pozicija">
+			<div id="rjmb" class="rjmb"></div>
+			<table>
+				<tr>
+					<td><button id="br1" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">5</button></td>
+					<td><button id="br2" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">5</button></td>
+					<td><button id="br3" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">5</button></td>
+					<td><button id="br4" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">5</button></td>
+					<td><button id="br5" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">10</button></td>
+					<td><button id="br6" class="osnovno brojevi animacija1" onclick="Brojevi(this.innerHTML, this.id)">10</button></td>
+				</tr>
+				<tr>
+					<td class="osnovno brojevi" onclick="Operacije(this.innerHTML)">+</td>
+					<td class="osnovno brojevi" onclick="Operacije(this.innerHTML)">-</td>
+					<td class="osnovno brojevi" onclick="Operacije(this.innerHTML)">*</td>
+					<td class="osnovno brojevi" onclick="Operacije(this.innerHTML)">/</td>
+					<td class="osnovno brojevi" onclick="OZagrada()">(</td>
+					<td class="osnovno brojevi" onclick="document.getElementById('ekran').innerHTML += this.innerHTML">)</td>
+				</tr>
+			</table>
+			<div id="ekran" class="rjmb"></div><br />
+			<button class="osnovno dugmad-mb" id="bt1" onclick="document.getElementById('tajmer').value = 1">Zavrsi</button>
+			<button class="osnovno dugmad-mb" id="bt2" onclick="ResetMB()">Reset</button>
+			<div id="validator" style="display: none;"></div><!--Ja provjeravam da li se unosi operacija ili broj-->
+		</div>
+		<div id="licitacije" style="display: none;" class="pozicija">
+			<div id="tema" class="osnovno polja"></div>
+			<div id="kasalic" class="osnovno polja">0</div>
+		</div>
+		<div id="ko-to-tamo-pjeva" class="pozicija" style="display: none;">
+			<input type="text" class="polja osnovno" id="naziv" oninput="this.value = this.value.toUpperCase();" placeholder="Naziv pjesme" />
+			<br/>
+			<br/>
+			<input type="text" class="polja osnovno" id="izvodjac" oninput="this.value = this.value.toUpperCase();" placeholder="Izvodjac" />
+			<br/>
+			<br/>
+			<input type="text" class="polja osnovno" id="kasakttp" value="0" />
+			<br/>
+			<br/>
+			<button class="osnovno polja" onclick="document.getElementById('tajmer').value = 1">Potvrdi</button>
+			<div id="pjs" style="display: none;"></div>
+		</div>
+		<div id="zid" class="pozicija" style="display: none;">
+			<input type="text" id="temazid" class="osnovno temazid" readonly>
+			<div id="ozid" class="zid">
+				<button id="cigl1" onclick="OtvoriPZ(0, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 50px;left:0;">1</button><!--
+				--><button id="cigl2" onclick="OtvoriPZ(1, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 50px;left:160;">2</button><!--
+				--><button id="cigl3" onclick="OtvoriPZ(2, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 50px;left:320;">3</button><!--
+				--><button id="cigl4" onclick="OtvoriPZ(3, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 50px;left:480;">4</button>
+				<div></div>
+				<button id="cigl5" onclick="OtvoriPZ(4, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 190px;left:0;">5</button><!--
+				--><button id="cigl6" onclick="OtvoriPZ(5, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 190px;left:160;">6</button><!--
+				--><button id="cigl7" onclick="OtvoriPZ(6, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 190px;left:320;">7</button><!--
+				--><button id="cigl8" onclick="OtvoriPZ(7, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 190px;left:480;">8</button>
+				<div></div>
+				<button id="cigl9" onclick="OtvoriPZ(8, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 330px;left:0;">9</button><!--
+				--><button id="cigl10" onclick="OtvoriPZ(9, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 330px;left:160;">10</button><!--
+				--><button id="cigl11" onclick="OtvoriPZ(10, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 330px;left:320;">11</button><!--
+				--><button id="cigl12" onclick="OtvoriPZ(11, this)" class="osnovno cigle" style="border-top: none;position:absolute;top: 330px;left:480;">12</button>
+				<input type="text" id="rjesenjezid" class="osnovno rjesenjezid" oninput="this.value = this.value.toUpperCase();" onkeypress="ZidP(event, this.value, this)">
+			</div>
+			<div id="kutijazid" style="display:none;">
+				<div id="pitanjez" class="osnovno pitanjez" style="border-top: none;"><b id="brptz"></b></div>
+				<input type="text" id="odgovorz" class="osnovno rjesenjezid" style="border-top: solid 3px #963634;" oninput="this.value = this.value.toUpperCase();" onkeypress="if(event.keyCode == 13){document.getElementById('tajmer').value = 1}" onclick="this.focus()" placeholder="Unesi odgovor i pritisni 'ENTER'">
+			</div>
+			<div style="position:absolute;top: 117.5px;right: -150px;">
+				<div class="popup"><input type="text" id="kasazid" class="osnovno ostalozid" onmouseenter="PopUp(1, 'z')" onmouseleave="PopUp(1, 'z')" value="0" readonly><span class="popuptext" id="myPopupz1">Ja sam kasa u kojoj se drze osvojeni poeni u igri Zid.</span></div><br></br>
+				<div class="popup"><input type="text" id="bonuszid" class="osnovno ostalozid" onmouseenter="PopUp(2, 'z')" onmouseleave="PopUp(2, 'z')" value="48" readonly><span class="popuptext" id="myPopupz2">Ja sam kasa u kojoj se drze bonus poeni u igri Zid.</span></div><br></br>
+				<div class="popup"><input type="button" id="izadji" class="osnovno ostalozid" onmouseenter="PopUp(3, 'z')" onmouseleave="PopUp(3, 'z')" value="X" onclick="Ignitez()"><span class="popuptext" id="myPopupz3">Ako zelis da odustanes,klikni me i odustaces od igre.</span></div>
+			</div>
+		</div>
+		<div id="asocijacije" class="pozicija" style="display: none;">
+			<div style="width: 1020px;height: 580px;"><!--Tabela-->
+				<div style="position: absolute;top: 0;left: 0;"><!--Kolona A-->
+					<div id="A1" class="popup" onmouseenter="PopUpAso('PopUpA1')" onmouseleave="PopUpAso('PopUpA1')">
+						<button id="aso:0-0" class="poljaaso osnovno" onclick="Otvori_Polje(0, 0, this, 'PopUpA1', 1)">A1</button>
+						<span class="popuptext" id="PopUpA1"></span>
+					</div>
+					<br></br>
+					<div id="A2" class="popup" onmouseenter="PopUpAso('PopUpA2')" onmouseleave="PopUpAso('PopUpA2')">
+						<button id="aso:1-0" class="poljaaso osnovno" onclick="Otvori_Polje(1, 0, this, 'PopUpA2', 1)">A2</button>
+						<span class="popuptext" id="PopUpA2"></span>
+					</div>
+					<br></br>
+					<div id="A3" class="popup" onmouseenter="PopUpAso('PopUpA3')" onmouseleave="PopUpAso('PopUpA3')">
+						<button id="aso:2-0" class="poljaaso osnovno" onclick="Otvori_Polje(2, 0, this, 'PopUpA3', 1)">A3</button>
+						<span class="popuptext" id="PopUpA3"></span>
+					</div>
+					<br></br>
+					<div id="A4" class="popup" onmouseenter="PopUpAso('PopUpA4')" onmouseleave="PopUpAso('PopUpA4')">
+						<button id="aso:3-0" class="poljaaso osnovno" onclick="Otvori_Polje(3, 0, this, 'PopUpA4', 1)">A4</button>
+						<span class="popuptext" id="PopUpA4"></span>
+					</div>
+					<br></br>
+					<div id="A5" class="popup" onmouseenter="PopUpAso('PopUpA5')" onmouseleave="PopUpAso('PopUpA5')">
+						<input type="text" id="aso:4-0" class="poljaaso osnovno" oninput="this.value = this.value.toUpperCase()" onkeypress="PKA(event.keyCode, this, 4, 0, 'PopUpA5', 1)" placeholder="A" />
+						<span class="popuptext" id="PopUpA5"></span>
+					</div>
+				</div>
+				<div style="position: absolute;top: 0;left: 255;"><!--Kolona B-->	
+					<div id="B1" class="popup" onmouseenter="PopUpAso('PopUpA11')" onmouseleave="PopUpAso('PopUpA11')">
+						<button id="aso:0-1" class="poljaaso osnovno" onclick="Otvori_Polje(0, 1, this, 'PopUpA11', 1)">B1</button>
+						<span class="popuptext" id="PopUpA11"></span>
+					</div>
+					<br><br>
+					<div id="B2" class="popup" onmouseenter="PopUpAso('PopUpA12')" onmouseleave="PopUpAso('PopUpA12')">
+						<button id="aso:1-1" class="poljaaso osnovno" onclick="Otvori_Polje(1, 1, this, 'PopUpA12', 1)">B2</button>
+						<span class="popuptext" id="PopUpA12"></span>
+					</div>
+					<br><br>
+					<div id="B3" class="popup" onmouseenter="PopUpAso('PopUpA13')" onmouseleave="PopUpAso('PopUpA13')">
+						<button id="aso:2-1" class="poljaaso osnovno" onclick="Otvori_Polje(2, 1, this, 'PopUpA13', 1)">B3</button>
+						<span class="popuptext" id="PopUpA13"></span>
+					</div>
+					<br><br>
+					<div id="B4" class="popup" onmouseenter="PopUpAso('PopUpA14')" onmouseleave="PopUpAso('PopUpA14')">
+						<button id="aso:3-1" class="poljaaso osnovno" onclick="Otvori_Polje(3, 1, this, 'PopUpA14', 1)">B4</button>
+						<span class="popuptext" id="PopUpA14"></span>
+					</div>
+					<br></br>
+					<div id="B5" class="popup" onmouseenter="PopUpAso('PopUpA15')" onmouseleave="PopUpAso('PopUpA15')">
+						<input type="text" id="aso:4-1" class="poljaaso osnovno" oninput="this.value = this.value.toUpperCase()" onkeypress="PKA(event.keyCode, this, 4, 1, 'PopUpA15', 1)" placeholder="B" />
+						<span class="popuptext" id="PopUpA15"></span>
+					</div>
+				</div>
+				<div style="position: absolute;top: 0;right: 255;"><!--Kolona C-->
+					<div id="C1" class="popup" onmouseenter="PopUpAso('PopUpA21')" onmouseleave="PopUpAso('PopUpA21')">
+						<button id="aso:0-2" class="poljaaso osnovno" onclick="Otvori_Polje(0, 2, this, 'PopUpA21', 1)">C1</button>
+						<span class="popuptext" id="PopUpA21"></span>
+					</div>
+					<br><br>
+					<div id="C2" class="popup" onmouseenter="PopUpAso('PopUpA22')" onmouseleave="PopUpAso('PopUpA22')">
+						<button id="aso:1-2" class="poljaaso osnovno" onclick="Otvori_Polje(1, 2, this, 'PopUpA22', 1)">C2</button>
+						<span class="popuptext" id="PopUpA22"></span>
+					</div>
+					<br><br>
+					<div id="C3" class="popup" onmouseenter="PopUpAso('PopUpA23')" onmouseleave="PopUpAso('PopUpA23')">
+						<button id="aso:2-2" class="poljaaso osnovno" onclick="Otvori_Polje(2, 2, this, 'PopUpA23', 1)">C4</button>
+						<span class="popuptext" id="PopUpA23"></span>
+					</div>
+					<br><br>
+					<div id="C4" class="popup" onmouseenter="PopUpAso('PopUpA24')" onmouseleave="PopUpAso('PopUpA24')">
+						<button id="aso:3-2" class="poljaaso osnovno" onclick="Otvori_Polje(3, 2, this, 'PopUpA24', 1)">C4</button>
+						<span class="popuptext" id="PopUpA24"></span>
+					</div>
+					<br><br>
+					<div id="C5" class="popup" onmouseenter="PopUpAso('PopUpA25')" onmouseleave="PopUpAso('PopUpA25')">
+						<input type="text" id="aso:4-2" class="poljaaso osnovno" oninput="this.value = this.value.toUpperCase()" onkeypress="PKA(event.keyCode, this, 4, 2, 'PopUpA25', 1)" placeholder="C" />
+						<span class="popuptext" id="PopUpA25"></span>
+					</div>
+				</div>
+				<div style="position: absolute;top: 0;right: 0;"><!--Kolona D-->
+					<div id="D1" class="popup" onmouseenter="PopUpAso('PopUpA31')" onmouseleave="PopUpAso('PopUpA31')">
+						<button id="aso:0-3" class="poljaaso osnovno" onclick="Otvori_Polje(0, 3, this, 'PopUpA31', 1)">D1</button>
+						<span class="popuptext" id="PopUpA31"></span>
+					</div>
+					<br></br>
+					<div id="D2" class="popup" onmouseenter="PopUpAso('PopUpA32')" onmouseleave="PopUpAso('PopUpA32')">
+						<button id="aso:1-3" class="poljaaso osnovno" onclick="Otvori_Polje(1, 3, this, 'PopUpA32', 1)">D2</button>
+						<span class="popuptext" id="PopUpA32"></span>
+					</div>
+					<br></br>
+					<div id="D3" class="popup" onmouseenter="PopUpAso('PopUpA33')" onmouseleave="PopUpAso('PopUpA33')">
+						<button id="aso:2-3" class="poljaaso osnovno" onclick="Otvori_Polje(2, 3, this, 'PopUpA33', 1)">D3</button>
+						<span class="popuptext" id="PopUpA33"></span>
+					</div>
+					<br></br>
+					<div id="D4" class="popup" onmouseenter="PopUpAso('PopUpA34')" onmouseleave="PopUpAso('PopUpA34')">
+						<button id="aso:3-3" class="poljaaso osnovno" onclick="Otvori_Polje(3, 3, this, 'PopUpA34', 1)">D4</button>
+						<span class="popuptext" id="PopUpA34"></span>
+					</div>
+					<br></br>
+					<div id="D5" class="popup" onmouseenter="PopUpAso('PopUpA35')" onmouseleave="PopUpAso('PopUpA35')">
+						<input type="text" id="aso:4-3" class="poljaaso osnovno" oninput="this.value = this.value.toUpperCase()" onkeypress="PKA(event.keyCode, this, 4, 3, 'PopUpA35', 1)" placeholder="D" />
+						<span class="popuptext" id="PopUpA35"></span>
+					</div>
+				</div>
+				<div style="position: absolute;bottom: -29;"><br></br>
+				<!--rjesenje-->
+				<input type="text" id="rjaso" class="osnovno" placeholder="???" oninput="this.value = this.value.toUpperCase()" onkeypress="PRA(event.keyCode, this, 1)">
+				<!--Kasa-->
+				<br></br>					
+				<div id="kasaaso" class="osnovno">0</div></div>
+				<div id="alertbox"></div>
+			</div>
+		</div>
+		<div id="korak-po-korak" style="display: none;" class="pozicija">
+			<div style="width: 1020px;height: 560px;">
+				<div style="position: absolute;top: 0;left: 0;"><!--Koraci-->
+					<div class="popup" onmouseenter="PopUpAso('PopUpK1')" onmouseleave="PopUpAso('PopUpK1')"><button id="kpkk1" class="kpk-koraci osnovno" disabled></button><span id="PopUpK1" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK2')" onmouseleave="PopUpAso('PopUpK2')"><button id="kpkk2" class="kpk-koraci osnovno" disabled></button><span id="PopUpK2" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK3')" onmouseleave="PopUpAso('PopUpK3')"><button id="kpkk3" class="kpk-koraci osnovno" disabled></button><span id="PopUpK3" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK4')" onmouseleave="PopUpAso('PopUpK4')"><button id="kpkk4" class="kpk-koraci osnovno" disabled></button><span id="PopUpK4" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK5')" onmouseleave="PopUpAso('PopUpK5')"><button id="kpkk5" class="kpk-koraci osnovno" disabled></button><span id="PopUpK5" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK6')" onmouseleave="PopUpAso('PopUpK6')"><button id="kpkk6" class="kpk-koraci osnovno" disabled></button><span id="PopUpK6" class="popuptext2"></span></div>
+					<br></br>
+					<div class="popup" onmouseenter="PopUpAso('PopUpK7')" onmouseleave="PopUpAso('PopUpK7')"><button id="kpkk7" class="kpk-koraci osnovno" disabled></button><span id="PopUpK7" class="popuptext2"></span></div>
+					<br></br>
+					<input type="text" id="kpkk8" class="kpk-koraci osnovno" style="width: 1020;border-radius: 30px;text-align: center;" oninput="this.value = this.value.toUpperCase()" onclick="UnosimKPK()" onkeypress="ProvjeriKPK(event, this.value)">
+				</div>
+				<div style="position: absolute;top: 0;right: 0;">
+					<button id="kpkkasa1" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa2" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa3" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa4" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa5" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa6" class="kpk-kase osnovno" disabled></button>
+					<br></br>
+					<button id="kpkkasa7" class="kpk-kase osnovno" disabled></button>
+				</div>
+			</div>
+		</div>
+		<div id="spajalica" style="display: none;" class="pozicija">
+			<div id="spajalica-tema" class="osnovno">hgggghghgh</div>
+			<div id="spajalica-kasa" class="osnovno">0</div>
+			<table style="border-spacing: 10px;">
+				<tr>
+					<td id="ls1"><button id="lsb1" class="osnovno spa1" disabled></button></td>
+					<td id="ds1"><button id="dsb1" class="osnovno spa2" onclick="ProvjeriS(1)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls2"><button id="lsb2" class="osnovno spa1" disabled></button></td>
+					<td id="ds2"><button id="dsb2" class="osnovno spa2" onclick="ProvjeriS(2)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls3"><button id="lsb3" class="osnovno spa1" disabled></button></td>
+					<td id="ds3"><button id="dsb3" class="osnovno spa2" onclick="ProvjeriS(3)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls4"><button id="lsb4" class="osnovno spa1" disabled></button></td>
+					<td id="ds4"><button id="dsb4" class="osnovno spa2" onclick="ProvjeriS(4)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls5"><button id="lsb5" class="osnovno spa1" disabled></button></td>
+					<td id="ds5"><button id="dsb5" class="osnovno spa2" onclick="ProvjeriS(5)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls6"><button id="lsb6" class="osnovno spa1" disabled></button></td>
+					<td id="ds6"><button id="dsb6" class="osnovno spa2" onclick="ProvjeriS(6)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls7"><button id="lsb7" class="osnovno spa1" disabled></button></td>
+					<td id="ds7"><button id="dsb7" class="osnovno spa2" onclick="ProvjeriS(7)"></button></td>
+				</tr>
+				<tr>
+					<td id="ls8"><button id="lsb8" class="osnovno spa1" disabled></button></td>
+					<td id="ds8"><button id="dsb8" class="osnovno spa2" onclick="ProvjeriS(8)"></button></td>
+				</tr>
+			</table>
+		</div>
+		<div id="parovi" style="display: none;" class="pozicija">
+			<div id="parovi-kasa" class="osnovno">50</div>
+			<div class="polje-za-tabelu osnovno">
+				<table style="border-spacing: 5;position: absolute;top: 80px;left: 15%;">
+					<tr>
+						<td id="p1"></td>
+						<td id="p2"></td>
+						<td id="p3"></td>
+						<td id="p4"></td>
+					</tr>
+					<tr>
+						<td id="p5"></td>
+						<td id="p6"></td>
+						<td id="p7"></td>
+						<td id="p8"></td>
+					</tr>
+					<tr>
+						<td id="p9"></td>
+						<td id="p10"></td>
+						<td id="p11"></td>
+						<td id="p12"></td>
+					</tr>
+					<tr>
+						<td id="p13"></td>
+						<td id="p14"></td>
+						<td id="p15"></td>
+						<td id="p16"></td>
+					</tr>
+					<tr>
+						<td id="p17"></td>
+						<td id="p18"></td>
+						<td id="p19"></td>
+						<td id="p20"></td>
+					</tr>
+				</table>
+			</div>
+			<div id="prviklik" style="display: none;"></div>
+			<div id="drugiklik" style="display: none;"></div>
+		</div>
+		<div id="put-oko-svijeta" style="display: none;" class="pozicija">
+			<div id="pos-zastava"></div><br></br>
+			<button id="pos-kasa" class="osnovno polja" onclick="Select()" style="width: 600px;position: absolute;bottom: 120%;" disabled>0</button>
+			<button class="osnovno polja" style="width:600px;position: absolute;bottom: 105%;" onclick="document.getElementById('tajmer').value = 1">Potvrdi</button>
+			<button id="pos-selekcija" class="osnovno polja" onclick="Select()" style="width: 600px;">Izaberi drzavu</button>
+			<div>
+				<div id="pos-opcije" class="pos-opcije pos-opcije-animacija2" style="display: none;position: absolute;">
+				<button id="pos-op1" class="osnovno polja" style="width: 600px;" onclick="Select_Change(this.innerHTML)">Izaberi drzavu</button>
+				<button id="pos-op2" class="osnovno polja" style="width: 600px;" onclick="Select_Change(this.innerHTML)">Izaberi drzavu</button>
+				<button id="pos-op3" class="osnovno polja" style="width: 600px;" onclick="Select_Change(this.innerHTML)">Izaberi drzavu</button>
+				</div>
+			</div>
+			<div id="pos-brigre" style="display: none;">broj igre</div>
+			<div id="pos-brzastave" style="display: none;">0</div>
+		</div>
+		<div id="vreteno" style="display: none;" class="pozicija">
+			<div id="vre-slova" class="osnovno">DVAALCA</div><br></br>
+			<div>
+				<div style="position: relative;left: 25%;"><button disabled id="p1-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p1-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p1-3" class="osnovno vre-polje"></button></div>
+				
+				<div style="position: relative;left: 16.5%;"><button disabled id="p2-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p2-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p2-3" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p2-4" class="osnovno vre-polje"></button></div>
+				
+				<div style="position: relative;left: 8.5%;"><button disabled id="p3-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p3-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p3-3" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p3-4" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p3-5" class="osnovno vre-polje"></button></div>
+				
+				<div><button disabled id="vre-kasa" class="osnovno vre-polje" style="position: absolute;right: 110%;">0</button>
+				<button disabled id="p4-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p4-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p4-3" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p4-4" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p4-5" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p4-6" class="osnovno vre-polje"></button></div>
+				
+				<div style="position: relative;left: 8.5%;"><button disabled id="p5-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p5-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p5-3" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p5-4" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p5-5" class="osnovno vre-polje"></button></div>
+				
+				<div style="position: relative;left: 16.5%;"><button disabled id="p6-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p6-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p6-3" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p6-4" class="osnovno vre-polje"></button></div>
+				
+				<div style="position: relative;left: 25%;"><button disabled id="p7-1" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p7-2" class="osnovno vre-polje"></button><!--
+				--><button disabled id="p7-3" class="osnovno vre-polje"></button></div>
+			</div><br></br>
+			<input type="text" id="vre-rjesenja" class="osnovno" oninput="this.value = this.value.toUpperCase()" onkeypress="Provjeri_PRE(this, event)" />
+			<div id="vre-opis" class="osnovno"></div>
+		</div>
+		<div id="potjera" style="display: none;width: 720px;" class="pozicija">
+			<div id="pot-interfejs" style="position: relative;left: 45px;">
+				<div><div id="pot-pitanje" class="osnovno pot-polja popup" onmouseenter="PopUpPOT()" onmouseleave="PopUpPOT()">AAAAAAAAAAAAAAAA</div><span id="pot-pitanje-sve" class="oblak" style="display: none;"></span></div><br></br>
+				<div id="pot-lovac-odg" class="osnovno pot-polja">ODGOVOR LOVCA</div><br></br>
+				<div id="pot-igrac-odg" class="osnovno pot-polja" onclick="Select_POT(this)">Izaberi odgovor</div>
+				<div id="pot-odgovori" class="pot-odgovori pot-animacija2" style="display: none;position: absolute;">
+					<div id="pot-od0" class="osnovno pot-polja" style="border-radius: 0px" onclick="Select_POT(this)"></div>
+					<div id="pot-od1" class="osnovno pot-polja" style="border-radius: 0px" onclick="Select_POT(this)"></div>
+					<div id="pot-od2" class="osnovno pot-polja" style="border-radius: 0px 0px 40px 40px" onclick="Select_POT(this)"></div>
+				</div>
+				<div id="pot-ulog" class="pot-ulog">
+					<input type="text" class="osnovno pot-polja pot-polje_uloga" placeholder="Unesite ulog" onkeyup="Samo_Brojevi_POT(this, event)" onkeypress="Ulog_POT(event, this)">
+				</div>
+			</div>
+			<table class="pot-koraci">
+				<tr>
+					<td class="osnovno netacno pot-koraci-polja" id="pot-korak1"></td>
+					<td class="osnovno tacno pot-koraci-polja" id="pot-korak2"></td>
+					<td class="osnovno tacno pot-koraci-polja" id="pot-korak3" onclick="Start_POT(this, 1.5)"></td>
+					<td class="osnovno tacno pot-koraci-polja" id="pot-korak4" onclick="Start_POT(this, 1.35)"></td>
+					<td class="osnovno tacno pot-koraci-polja" id="pot-korak5" onclick="Start_POT(this, 1.2)"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak6"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak7"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak8"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak9"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak10"></td>
+					<td class="osnovno marker pot-koraci-polja" id="pot-korak11"></td>
+					<td class="osnovno pot-koraci-polja" id="pot-korak12"></td>
+				</tr>
+			</table>
+			<div style="display: none;" id="pot-igrac-korak">5</div>
+			<div style="display: none;" id="pot-lovac-korak">1</div>
+			<div style="display: none;" id="pot-multiplicator">1</div>
+		</div>
+		<div id="sef" style="display: none;width: 550px;" class="pozicija">
+			<div class="sef-block">
+				<input id="code0" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" />
+				<button id="znak0-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak0-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak0-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak0-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code1" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak1-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak1-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak1-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak1-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code2" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak2-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak2-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak2-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak2-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code3" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak3-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak3-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak3-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak3-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code4" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak4-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak4-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak4-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak4-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code5" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak5-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak5-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak5-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak5-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div class="sef-block">
+				<input id="code6" type="text" class="osnovno sef-code" maxlength="4" oninput="Validation(this)" onkeypress="SefPotvrda(event)" disabled />
+				<button id="znak6-0" disabled class="osnovno sef-indikator"></button>
+				<button id="znak6-1" disabled class="osnovno sef-indikator"></button>
+				<button id="znak6-2" disabled class="osnovno sef-indikator"></button>
+				<button id="znak6-3" disabled class="osnovno sef-indikator"></button>
+			</div>
+			<div id="sef_sifra" style="display: none;"></div>
+		</div>
+		<div id="moji-izrazi" style="display: none;" class="pozicija">
+			<div style="width: 800px;">
+				<input type="text" id="mi-izraz" class="osnovno mi-izraz-kasa" disabled value="5444" />
+				<br></br>
+				<button class="osnovno mi-dugme mid-1" onclick="MI_Check(this.innerHTML)">Dalje</button>
+				<button class="osnovno mi-dugme mid-2" onclick="MI_Check(this.innerHTML)"></button> 
+				<br></br>
+				<button class="osnovno mi-dugme mid-1" onclick="MI_Check(this.innerHTML)"></button>
+				<button class="osnovno mi-dugme mid-2" onclick="MI_Check(this.innerHTML)"></button> 
+				<br></br>
+				<input type="text" id="mi-kasa" class="osnovno mi-izraz-kasa" disabled value="0" />
+			</div>
+		</div>
+		<input type="text" id="tajmer" class="tajmer" value="0" readonly />
+		<div id="glkasa" class="osnovno"><b id="poeni" class="pozicija">0</b></div>
+		<div id="info" class="osnovno" onclick="document.getElementById('info-container').style.display = 'block'"><b class="pozicija">info</b></div>
+		<div id="bgm" class="osnovno"><b id="bgmc" onclick="PustiMuziku(this)" class="pozicija">play</b></div>
+		<div id="upitnik" class="osnovno" onclick="document.getElementById('upitnik-container').style.display = 'block';last_clicked='top';document.getElementById(last_clicked).scrollIntoView(true);"><b class="pozicija">?</b></div>
+		<div id="info-container" class="modal-container">
+			<div class="modal">
+				<div class="modal-head">
+					<b>Info</b>
+					<button class="close" onclick="document.getElementById('info-container').style.display = 'none'">X</button>
+				</div>
+				<div class="modal-body">
+					<div class="pozicija"><p>Igru osmislio Borislav Vucicevic.</p>
+					<p>Igricu programirao Borislav Vucicevic.</p>
+					<p>Grafiku dizajnirao Borislav Vucicevic.</p></div>
+				</div>
+				<b class="footer-note">Prijedloge posaljite na mail <i>borislavvucicevic516@gmail.com</i></b>
+			</div>
+		</div>
+		<div id="upitnik-container" class="modal-container" style="display: block;">
+			<div class="modal">
+				<div id="up-head" class="modal-head">
+					<b id="naslov">Uputstvo za igru</b>
+					<button id="cls" class="close" onclick="document.getElementById('upitnik-container').style.display = 'none'">X</button>
+					<button id="bck" class="close" style="display: none;" onclick="GlavniUpit()"><b><</b></button>
+				</div>
+				<div id="up-body" class="modal-body">
+					<p id="top">Dobro dosli u Igru Znanja.Hvala vam mnogo sto ste instalirali ovu igricu.Igra Znanja je igra opsteg znanja.Prvo procitajte uputstva za igre.Igre otvarate klikom na njih.Muzika u pozadini je po defaultu iskljucena,ali je mozete ukljuciti klikom na dugme play.Uputstva gasite na dugme X.<b style="color: red;">UPUTSTVA NE OTVARAJTE AKO STE POKRENULI NEKU MINI IGRU!</b><div></div>OSISANA LATINICA-je engleska latinica bez slova Q,W,Y i X.<div></div><b>SRECNO!</b></p>
+					<b><u>Uputstva za mini igre:</u></b>
+					<p id="p1" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'usps', 'op1', 'p1')">Slovo Po Slovo</u></p>
+					<p id="p2" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'umb', 'op2', 'p2')">Moj Broj</u></p>
+					<p id="p3" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'uili', 'op3', 'p3')">Ili-Ili</u></p>
+					<p id="p5" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'ukttp', 'op5', 'p5')">Ko To Pjeva</u></p>
+					<p id="p6" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'uzid', 'op6', 'p6')">Zid</u></p>
+					<p id="p7" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'uaso', 'op7', 'p7')">Asocijacije</u></p>
+					<p id="p8" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'ukpk', 'op8', 'p8')">Korak Po Korak</u></p>
+					<p id="p4" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'uspa', 'op4', 'p4')">Spajalica</u></p>
+					<p id="p9" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'upar', 'op9', 'p9')">Parovi</u></p>
+					<p id="p10" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'upos', 'op10', 'p10')">Put Oko Svijeta</u></p>
+					<p id="p11" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'upre', 'op11', 'p11')">Premetaljka</u></p>
+					<p id="p12" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'upot', 'op12', 'p12')">Potjera</u></p>
+					<p id="p13" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'usef', 'op13', 'p13')">Sef</u></p>
+					<p id="p14" class="false-linkovi"><u onclick="Upute(this.innerHTML, 'umi', 'op14', 'p14')">Moji Izrazi</u></p>
+				</div>
+				<b class="footer-note">Prijedloge posaljite na mail <i>borislavvucicevic516@gmail.com</i></b>
+			</div>
+		</div>
+		<div id="usps" style="display: none;">
+			<b style="font-size: 35px;"><u id="op1">Opis:</u></b><div></div>
+			<i>Slovo po slovo</i> je igra u kojoj pogadjate zadatu frazu.Fraza moze biti poslovica,ime djela ili misao poznatih.Fraza se sifruje i upisuje u polje za frazu.<b style="color: red;">OBAVEZNO PISATI OSISANOM LATINICOM!</b><br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			U prvo polje,"Trazilica",unesite jedno slovo i pritisnite taster enter.Ukoliko u frazi se nalazi slovo,ono ce biti prikazano u polju sa sifrovanom frazom.Po isteku vremena,iskocice vam prozor za unosenje rjesenja.Ukoliko je ono tacno dobicete poene iz polja "Kasa"(to je polje odmah ispod trazilice).Za rjesavanje imate 100s.Ukoliko ste rijesili frazu a ostalo vam je jos dosta vremena,kliknite dugme "Zavrsi".<br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Poeni koje osvajate nalaze se u polju "Kasa"(to je polje odmah ispod trazilice).Na pocetku igre u kasu se stavlja 40 poena.Za svako pogodjeno slovo gubite 1 poen,a za svako pogresno gubite 3 poena.Dugme "Pomoc" vam zapocinje frazu i iz kase uzima 10 poena i oduzme vam 20s vremena.
+		</div>
+		<div id="umb" style="display: none;">
+			<b style="font-size: 35px;"><u id="op2">Opis:</u></b><div></div>
+			<i>Moj Broj</i> je igra u kojoj,uz pomoc nasumicno odabranih 6 brojeva i osnovnih racunskih operacija,pokusavate da nadjete sto pribliznije rjesenje zadatom broju.Zadati broj se zadaje u intervalu od 100 do 1000.Imate 155s za rjesavanje.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Prvih 5s sacekate da program odabere brojeve.Kao trazeni broj zadaje se jedan izmedju 100 i 1000(100 i 1000 dolaze takodje kao opcije).Za prva 4 broja koja mozete koristiti odredje se broj izmedju 1 i 10.Peti broj moze biti 5,10,15 ili 20.Sesti broj moze biti 25,50,75 ili 100.Poslije unesenog broja ide operacija ili zagrada, takodje i poslije operacije ide broj ili zagrada.<b style="color: red">DUGME RESET OBRISE SVE U POLJU U KOJEM SE UNOSE BROJEVI I OPERACIJE!</b><br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			<ul>
+				<li>Ukoliko vas broj ne odstupa od rjesenja dobijate 35 poena</li>
+				<li>Ukoliko je odstupanje izmedju vaseg i zadatog broja izmedju 1 i 5 dobijate 30 poena.</li>
+				<li>Ukoliko je odstupanje izmedju vaseg i zadatog broja izmedju 6 i 15 dobijate 20 poena.</li>
+				<li>Ukoliko je odstupanje izmedju vaseg i zadatog broja izmedju 16 i 25 dobijate 10 poena.</li>
+				<li>Ukoliko je odstupanje izmedju vaseg i zadatog broja izmedju vece od 25 dobijate 0 poena.</li>
+			</ul>
+		</div>
+		<div id="uili" style="display: none;">
+			<b style="font-size: 35px;"><u id="op3">Opis:</u></b><div></div><div></div>
+			<i>Ili-Ili</i> je igra opsteg znanja.Zadaje vam se glavna tema i otkriva jedan par pojmova od kojih je jedan istinit a drugi lazan.Pojmovi su vezani za temu.Za rjesavanje svakog para imate 7s.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Prvo vam se zada tema i otkriva prvi par.Za rjesavanje para imate 7s.Parovi su vezani za temu.Jedan od parova je istinit a drugi je lazan.Parove birate klikom na jedan od njih.Ukoliko je odabrani par istinit,markirace se zelenom bojom,a ukoliko je lazan,markirace se crvenom bojom.Poslije markiranja ili isteka vremena otkriva vam se iduci par.Osvojeni poeni se stavljaju u kasu,a na kraju igre uzimate poene iz kase.<br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Za svaki pogodjen par dobijate 3 poena,odnosno 3 poena se stavljaju u kasu.Na kraju igre dobijate bonus koji se odredjuje po sljedećoj formuli:<div></div><i>(osvojeni poeni/7)*3</i><div></div><b style="color: red;">REZULTAT poeni/7 SE PRVO ZAOKRUZI NA MANJI NAJBLIZI CIO BROJ PA SE ONDA POMNOZI SA 3.</b>
+		</div>
+		<div id="ukttp" style="display: none;">
+			<b style="font-size: 35px;"><u id="op5">Opis:</u></b><div></div>
+			<i>Ko To Tamo Pjeva</i> je igra u kojoj na osnovu pustene pjesme pogadjate naziv i izvodjaca.Pokusao sam da zadovoljim sve ukuse.Pjevaci su uglavnom od 1990 pa do danas.Pogadjate 5 pjesama.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Za rjesavanje 1 pjesme dobijate 45s.Pjesma ce se pustati prvih 15s.U polje "Naziv pjesme" unosite naziv pjesme.U polje "Izvodjac" unosie ime izvodjaca.Kada popunite sto znate kliknite dugme "Potvrdi".Poeni ce se stavljati u kasu(to je polje koje je odmah ispod polja "Izvodjac").<b style="color: red;">OBAVEZNO PISITE OSISANOM LATINICOM!</b><br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Poslije kliktanja dugmeta "Potvrdi" program provjerava sta je od unesenog tacno.Ako ste pogodili samo naziv pjesme,dobijate 2 poena.Ako ste pogodili samo ime izvodjaca,dobijate 5 poena.Ako ste pogodili i izvodjaca i naziv pjesme,dobijate 10 poena.
+		</div>
+		<div id="uzid" style="display: none;">
+			<b style="font-size: 35px;"><u id="op6">Opis:</u></b><div></div>
+			<i>Zid</i> je igra opsteg znanja.Ispred vas se nalazi zid sacinjen od 12 cigli i na svakoj ima jedno pitanje.Pitanja su vezana za postavljenu temu.Zid rusite ciglu po ciglu odgovarajuci na pitanja sa cigli i pokusavate pogoditi sta se nalazi iza zida.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Prvo se zadaje tema.Zatim klikcete na ciglu.Posle toga iskace vam prozor sa pitanjem i poljem za unosenje odgovora.<b style="color: red;">Kod pitanja kod kojih su vam ponudjeni odgovori obavezno pisite odgovore,a ne njihov redni broj.</b>Ukoliko ste tacno odgovorili cigla se rusi,a ukoliko niste cigla ostaje blokirana.Poeni koje osvojite se stavljaju u kasu za poene.Cilj igre je da pogodite sta se krije iza zida.To moze biti neki pojam ili licnost koja je vezana za datu temu.Rjesenje zida unosite u polje ispod zida.Ukoliko je vase rjesenje tacno,dobijate poene iz kase i bonus iz kase za bonus.Kako se ne bih ponavljao mozete prevuci mis preko neceg sto vam je nepoznato i iskocice objasnjenje.Za odgovaranje na pitanje imate 30s.<b style="color:red;">OBAVEZNO PISITE OSISANOM LATINICOM!</b><br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Svaki put kada date tacan odgovor u kasu za poene vam se stavlja 3 poena,a iz kase za bonus vam se oduzimaju 4 poena.Ako date netacan odgovor onda i iz kase za poene i iz kase za bonus vam se oduzimaju 2 poena.
+		</div>
+		<div id="uaso" style="display: none;">
+			<b style="font-size: 35px;"><u id="op7">Opis:</u></b><div></div>
+			<i>Asocijacije</i> je igra s pojmovima.Prvo treba rijesiti cetiri sporedne asocijacije, a zatim pomocu 4 dobijena pojma rijesiti glavnu asocijaciju.Rjesenje svake asocijacije je neki pojam na koji asociraju cetiri pojma u njegovoj koloni. Na pocetku su svi pojmovi skriveni, i igrac otkriva jedan po jedan.Ukoliko je neki pojam ne zavrsen,tj. na kraju se nalaze tri tacke,porevucite mis preko tog polja da mozete procitati sta se nalazi u tom polju.Za rjesavanje imate 180s.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Polja otvarate lijevim klikom na odredjeno polje.Kada ga kliknete u njega ce se upisati odredjen pojam.Kao rjesenje kolone vi unosite pojam na koji vas asociraju pojmovi iz te kolone.Za konacno rjesenje unosite pojam na koji vas asociraju rjesenja kolona.<b style="color: red;">OBAVEZNO PISITE OSISANOM LATINICOM!</b><br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada rjesite kolonu dobijate 5 poena i bonus po 1 poen za svako neotkriveno polje u toj koloni,nakon cega se ona otkrivaju.Kada date konacno rjesenje dobijate 6 poena i bonus 1 poen za svako neotkriveno polje u citavoj asocijaciji i jos 6 poena za svako neotkriveno rjesenje kolone.
+		</div>
+		<div id="ukpk" style="display: none;">
+			<b style="font-size: 35px;"><u id="op8">Opis:</u></b><div></div>
+			<i>Korak Po Korak</i> je igra u kojoj uz pomoc koraka dolazite do trazenog pojma.Koraci su objasnjenja pojma.Sa desne strane u kasama stoje poeni,koji se iz sekunde u sekundu smanjuju.Kada broj poena stigne do 1 otvara se sljedeci korak i cio proces se nastavlja ispocetka.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Igra pocinje tako sto vam se otvara prvi korak i poeni u kasi s desna pocinju da se smanjuju za 1.Kada poeni stignu do broja 1 otkriva vam se sljedeci korak i cio proces ide ispocetka.Rjesenje(tj. pojam koji se trazi) upisujete u polje na dnu.Kada kliknete na polje u dnu poeni prestanu da se smanjuju i dobijate 15s za upisivanje rjesenja.Ukoliko je rjesenje tacno dobijate poene u kasi sa strane i bonus,a potom se svi koraci otkriju i markiraju se zelenom bojom.Ukoliko je rjesenje netacno,otkriva vam se sljedeci korak i proces pocinje ispocetka.<b style="color: red;">OBAVEZNO PISITE OSISANOM LATINICOM!</b><br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			U prvom koraku u kasi dobijate 20 poena a u ostalih 6 dobijate 15 poena.Kada pogodite pojam dobijate poene iz kase i odredjen bonus.Bonus se racuna po sljedecoj formuli:<div></div>
+			(3*(8-broj neotvorenih koraka)*10) / 4;
+		</div>
+		<div id="uspa" style="display: none;">
+			<b style="font-size: 35px;"><u id="op4">Opis:</u></b><div></div>
+			<i>Spajalica</i> je igra s pojmovima.U njoj treba te da spojite lijevu i desnu stranu tabele.Svaki pojam iz lijeve kolone ima svoj parnjak u desnoj koloni.Poeni se skupljaju u kasu ispod zadate teme.<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Igra se igra na sljedeci nacin.Pojmu u lijevoj koloni,koji je markiran zutom bojom,trazite parnjak u desnoj koloni.Pojmove birate lijevim klikom na njih.Ukoliko ste pravilno spojili pojmove onda se oba markiraju zelenom bojom i u kasu se stavljaju 3 poena.Ukoliko ste nepravilno spojili,tada se pojam markiran zutom bojom markira crvenom i ne mozete mu vise traziti parnjak.<br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Za svako pravilno spajanje dobijate 3 poena.Na kraju igre dobijate poene iz kase i bonus koji se racuna po sljedecoj formuli:<div></div>
+			bonus = (poeni iz kase / 16) * 14
+		</div>
+		<div id="upar" style="display: none;">
+			<b style="font-size: 35px;"><u id="op9">Opis:</u></b><div></div>
+			<i>Parovi</i> su isto sto i igra memorije.Tako da nema tu nekog pametovanja.:D<br></br>
+			<b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Lijevim klikom otvarate slicice.Ukoliko ste pronasli par slicice ostaju otkrivene.Ukoliko niste pronasli par slicice se skrivaju i iz kase se vadi 2 poena.<br></br>
+			<b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada otvorite dvije slicice i one nisu identicne gubite 2 poena iz kase.Ukoliko su otvorene slicice identicne,onda vam se iz kase ne vade poeni.Kada pronadjete sve parove slicica dobijate poene iz kase i bonus koji se racuna po sljedecoj formuli:<div></div>
+			bonus = (preostalo vrijeme / 180) * 20<div></div>
+			<b style="color: red;">UKOLIKO VAM ISTEKNE VRIJEME ILI IZGUBITE SVE POENE IZ KASE,ONDA NE DOBIJATE NISTA!</b>
+		</div>
+		<div id="upos" style="display: none;">
+			<b style="font-size: 35px;"><u id="op10">Opis:</u></b><div></div>
+			<i>Put oko svijeta</i> je igra u kojoj na osnovu date zastave pogadjate ime drzave.Ipod zastave imate polje "Izaberi drzavu" pomocu kojeg birate jednu od 3 drzave.Za svaki izbor imate 20s.
+			<br></br><b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Ispod date zastave imate polje "Izaberi drzavu".Kada ga kliknete otvara se panel s opcijama.Kliknite na opciju za koju mislite da je tacna.Uvijek se mozete predomisliti.Za biranje opcije imate 20s.
+			<br></br><b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada god date tacan odgovor u kasu se stavlja 5 poena.Na kraju igre dobijate poene iz kase i bonus koji se racuna po sljedecoj formuli:<div></div>
+			bonus = 5 + (poeni iz kase / 5)
+		</div>
+		<div id="upre" style="display: none;">
+			<b style="font-size: 35px;"><u id="op11">Opis:</u></b><div></div>
+			<i>Premetaljka</i> je igra sa rijecima.Cilj igre je da popunite vreteno rijecima koje odgovaraju opisu sa strane.Rijeci moraju biti sastavljene od ponudjenih slova.<div></div><font color="red">OBAVEZNO PISITE OSISANOM LATINICOM.Slova C,S,Z i kombinaciju DJ(racuna se kao 2 slova) mozete koristiti za slova kojih nema u osisanoj latinici.</font>
+			<br></br><b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Igra se igra tako sto sastavljate rijeci od ponudjenih slova koje odgovaraju opisu sa strane.Prvu polovinu vretena(od pocetka do sredine) popunjavate tako sto na svaku prethodnu rijec dodate slovo,ispremecete slova i zamijenite jedno slovo.(<font color="red">NIJE OBAVEZNO ZAMIJENITI SLOVO.Sami trebate procijeniti da li trebate ili ne zamijeniti neko slovo</font>).Druga polovina se popunjava na slican nacin samo sto umjesto da dodate jedno slovo vi ce te oduzeti i zamijeniti jedno slovo.(<font color="red">NIJE OBAVEZNO ZAMIJENITI SLOVO.Sami trebate procijeniti da li trebate ili ne zamijeniti neko slovo</font>).Rijeci upisujete u polje ispod.Kada upisete rijec kliknite enter.Mozete pokusavati sve dok vam ne istekne 30s.Kada istekne 30s otkriva se jedna rijec a vi pogadjate sljedecu.
+			<br></br><b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada god pogodite rijec dobijate odredjen broj poena koji se racuna po sljedecoj formuli:<div></div>
+			<i>broj slova - 2</i><div></div>Poeni koje osvojite idu u kasu(to je polje pored vretena).<div></div>
+			Na kraju igre dobijate bonus koji se racuna po sljedecoj formuli:<div></div>
+			<i>poeni iz kase * 14 / 16</i>
+		</div>
+		<div id="upot" style="display: none;">
+			<b style="font-size: 35px;"><u id="op12">Opis:</u></b><div></div>
+			<i>Potjera</i> je igra znanja.Cilj igre je stici do tamno crvenog polja.Krecete se dajuci tacne odgovore na zadata pitanja.Ali pazite jer vas prati lovac koji se isto tako krece dajuci tacne odgovore na zadata pitanja.Ukoliko vas lovac stigne gubite a ukoliko stignete do tamno crvenog polja pobjedjujete.<div></div>
+			<br></br><b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Igra pocinje poljem za ulog.U polje upisujete broj izmedju 15 i 30 tj. vas ulog poena i klikcete enter.Poto vam se u polja ispred lovca(to su polja na vrhu),koji je obiljezen crvenom bojom, na nekoliko koraka od njega daju poeni koje osvajate ako pobijedite krecuci od tog koraka.Kada izaberete jedno od ta 3 polja igra pocinje.
+			<br></br>Igra se igra tako sto dobijete pitanje i birate jedan od 3 ponudjena odgovora.Odgovore dobijate klikom na polje izaberi.Uvijek mozete promijeniti misljenje.Posle vas odgovor bira lovac.
+			<br></br><b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada unesete ulog i kliknete enter u sledeca polja ce se upisati sljedeci poeni:
+			<ul>
+				<li>na 2 koraka ispred lovca upisuje se <i>ulog*1.5</i> poena</li>
+				<li>na 3 koraka ispred lovca upisuje se <i>ulog*1.25</i> poena</li>
+				<li>na 4 koraka ispred lovca upisuje se <i>ulog*1</i> poena</li>
+			</ul>
+			<div></div>
+			Kada pobijedite dobijate bonus u zavisnos sa koliko koraka prednosti ste krenuli.Ako ste krenuli sa:
+			<ul>
+				<li>sa 2 koraka prednosti,dobijate <i>osvojeni poeni * 0.5</i> bonusa</li>
+				<li>sa 3 koraka prednosti,dobijate <i>osvojeni poeni * 0.35</i> bonusa</li>
+				<li>sa 4 koraka prednosti,dobijate <i>osvojeni poeni * 0.2</i> bonusa</li>
+			</ul>
+		</div>
+		<div id="usef" style="display: none;">
+			<b style="font-size: 35px;"><u id="op13">Opis:</u></b><div></div>
+			<i>Sef</i> je logička igra u kojoj morate pogoditi zadatu kombinaciju koristeci logiku i hintove.<div></div>
+			<br></br><b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			U polje za unos unesite kombinaciju koja se sastoji od brojeva 0,1,2,3,4 i 5.Kada unesete kombinaciju pritisnite enter.Kompjuter ce provjeriti vasu kombinaciju i dati vam hintove u vidu markera sa desne strane od polja.
+			<ul>
+				<li>Zeleni marker znaci da ste pogodili cifru i da je ona na pravom mjestu</li>
+				<li>Zuti marker znaci da ste pogodili cifru ali je ona na pogresnom mjestu</li>
+				<li>Crveni marker oznacava da se cifra ne nalazi u kombinaciji</li>
+			</ul>
+			NPR. ako ste unijeli kombinaciju 0123 i dobili <font color="green">**</font><font color="yellow">*</font><font color="red">*</font>,to znaci da se dvije cifre nalaze na pravom mjestu,da je jedna cifra u kombinaciji na pogresnom mjestu i da je jenda cifra promasena.<br></br><font color="red">REDOSLIJED MARKERA NE ODGOVARA REDOSLIJEDU CIFARA!!!</font>
+			<br></br><b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada pogodite kombinaciju dobijate 10 poena.Bonus koji dobijate zavisi od toga na kojem ste koraku pogodili kombinaciju.
+			Ako kombinaciju pogodite na <br>
+			<ol>
+				<li>koraku dobijate 30 poena bonusa.</li>
+				<li>koraku dobijate 25 poena bonusa.</li>
+				<li>koraku dobijate 20 poena bonusa.</li>
+				<li>koraku dobijate 15 poena bonusa.</li>
+				<li>koraku dobijate 10 poena bonusa.</li>
+				<li>koraku dobijate 5 poena bonusa.</li>
+				<li>koraku dobijate 0 poena bonusa.</li>
+			</ol>
+		</div>
+		<div id="umi" style="display: none;">
+			<b style="font-size: 35px;"><u id="op14">Opis:</u></b><div></div>
+			<i>Moji Izrazi</i> je igra u kojoj vam kompjuter zadaje 5 matematičkih izraza a vi trebate da ih rijesite.Matemeticki izraz je sastavljen od brojeva izmedju 1 i 10,prostih matematickih operacija i zagrada.<div></div>
+			<br></br><b style="font-size: 35px;"><u>Kako se igra:</u></b><div></div>
+			Kompjuter vam zadaje izraz sacinjen od brojeva izmedju 1 i 10,prostih matematickih operacija i zagrada.Potom vam daje tri rjesenja od kojih je jedno tacno.Za rjesavanje izraza imate 60s.Ukoliko niste sigurni da ste nasli tacno rjesenje izrazu kliknite dugem "Dalje" jer ukoliko odaberete pogresno rjesenje gubite 5 poena.
+			<br></br><b style="font-size: 35px;"><u>Poeni:</u></b><div></div>
+			Kada odaberete jedno rjesenje ukoliko je ono tacno dobijate 5 poena i odradjeni bonus koji je zavisi od toga koliko vam je verema trebalo da rijesite izraz.Ukoliko je odabrano rjesenje pogresno gubite 5 poena.Ukoliko ste kliknuli dugme dalje ne gubite poene.
+		</div>
+	</body>
+</html>
